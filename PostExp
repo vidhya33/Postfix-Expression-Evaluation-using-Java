@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class PostExp {
+	int top = -1;
+	int arr[];
+	PostExp(int n){
+		arr = new int[n];
+	}
+	void push(int n) {
+		top++;
+		arr[top] = n;
+	}
+	int pop() {
+		int j = 0;
+		if(top >= 0) {
+			j = arr[top];
+			top--;
+		}
+		return j;
+	}
+	public static void main(String ss[]) {
+		Scanner sc = new Scanner(System.in);
+		String exp = sc.next();
+		PostExp ob = new PostExp(exp.length());
+		int i = 0;
+		while(i < exp.length()) {
+			if(Character.isDigit(exp.charAt(i))) {
+				ob.push(exp.charAt(i) - '0');
+			}else {
+				int v = ob.pop();
+				int g = ob.pop();
+				char c = exp.charAt(i);
+				switch(c){
+				case '+':
+					ob.push(g+v);
+					break;
+				case '-':
+					ob.push(g-v);
+					break;
+				case '*':
+					ob.push(g*v);
+					break;
+				case '/':
+					ob.push(g/v);
+					break;
+				
+				}
+			}
+			i++;
+		}
+		System.out.println(ob.pop());
+	}
+}
